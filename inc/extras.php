@@ -77,7 +77,6 @@ endif;
  * @param E-Mail adress as String
  * @return encoded Email
  */
-
 function _teutopress_remove_plaintext_email($emailAddress) {
     $emailRegEx = '/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4})/i';
     return preg_replace_callback($emailRegEx, "_teutopress_encodeEmail", $emailAddress);
