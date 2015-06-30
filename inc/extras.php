@@ -92,16 +92,92 @@ add_filter( 'widget_text', '_teutopress_remove_plaintext_email', 20 );
 
 
 /**
+ * Clean the head
+ *
+ */
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'feed_links', 2);
+remove_action('wp_head', 'feed_links_extra', 3);
+remove_action('wp_head', 'start_post_rel_link', 10, 0);
+remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
+remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+/**
+ * Disable the WP Version
+ *
+ */
+function _teutopress_complete_version_removal() {
+	return '';
+}
+add_filter('the_generator', '_teutopress_complete_version_removal');
+
+
+/**
  * Disable Comments
  *
  * @param none
  * @return none
  */
+if (defined('DISABLE_COMMENTS') AND DISABLE_COMMENTS){
+	add_filter('get_header', '_teutopress_turn_comments_off');
+	function _teutopress_turn_comments_off(){
+	    if(is_single() || is_page()){
+	      global $post;
+	      $post->comment_status="closed";
+	  }
+	}
+}
 
-add_filter('get_header', '_teutopress_turn_comments_off');
-function _teutopress_turn_comments_off(){
-    if(is_single() || is_page()){
-      global $post;
-      $post->comment_status="closed";
-  }
+/**
+ * Show Updates only to admins
+ *
+ */
+if(defined('DISABLE_UPDATE_NOTICE_FOR_NON_ADMINS') AND DISABLE_UPDATE_NOTICE_FOR_NON_ADMINS){
+	global $user_level;
+	if ($user_level < 8) {
+		add_action( 'init', create_function( '$a', "remove_action( 'init', 'wp_version_check' );" ), 2 );
+		add_filter( 'pre_option_update_core', create_function( '$a', "return null;" ) );
+	};
+}
+
+/**
+ * Dont search for Theme Updates
+ *
+ */
+if(defined('DISABLE_THEME_UPDATES') AND DISABLE_THEME_UPDATES){
+	wp_clear_scheduled_hook('wp_update_themes');
+}
+
+
+
+/**
+ * Clear RSS Feeds
+ *
+ */
+if(defined('DISABLE_RSS') AND DISABLE_RSS){
+	function _teutopress_disable_feeds() {
+		wp_die( __('Kein Feed vorhanden. Besuchen Sie doch bitte unsere <a href="' . get_bloginfo('url') . '">Startseite</a>.', '_teutopress') );
+	}
+	add_action('do_feed', '_teutopress_disable_feeds', 1);
+	add_action('do_feed_rdf', '_teutopress_disable_feeds', 1);
+	add_action('do_feed_rss', '_teutopress_disable_feeds', 1);
+	add_action('do_feed_rss2', '_teutopress_disable_feeds', 1);
+	add_action('do_feed_atom', '_teutopress_disable_feeds', 1);
+
+}
+/**
+ * Is this the Development Version?
+ *
+ */
+if(defined('DEV_VERSION') AND DEV_VERSION){
+    add_action('wp_footer', '_teutopress_dev_notice');
+    add_action('admin_footer', '_teutopress_dev_notice');
+    function _teutopress_dev_notice() {
+        $ip = 'at IP: '.$_SERVER['SERVER_ADDR'];
+        echo "  <div id='dev_notice' style='position: fixed;width: 200px;bottom: 9px;right: 6%;background: rgba(204, 39, 39, 0.41);text-align: center;padding: 10px;border: 2px solid rgb(202, 24, 39);'>Development Version {$ip} </div>";
+    }
 }
