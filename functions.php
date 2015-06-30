@@ -15,7 +15,6 @@ define('DEV_VERSION', true);
 
 if ( ! function_exists( '_teutopress_setup' ) ) :
 
-
 function _teutopress_setup() {
 
 	load_theme_textdomain( '_teutopress', get_template_directory() . '/languages' );
