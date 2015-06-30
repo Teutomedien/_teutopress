@@ -70,6 +70,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 	add_action( 'wp_head', '_teutopress_render_title' );
 endif;
 
+
 /**
  * Remove all Plain text emails within the content and the widget Text
  * and replace them with the encoded Mail
