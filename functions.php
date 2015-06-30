@@ -15,7 +15,7 @@ define('DEV_VERSION', true);
 
 if ( ! function_exists( '_teutopress_setup' ) ) :
 
- */
+
 function _teutopress_setup() {
 
 	load_theme_textdomain( '_teutopress', get_template_directory() . '/languages' );
@@ -28,6 +28,7 @@ function _teutopress_setup() {
 	register_nav_menus( array(
 		'primary' => esc_html__( 'Primary Menu', '_teutopress' ),
 	) );
+
 
 	add_theme_support( 'html5', array(
 		'search-form',
