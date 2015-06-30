@@ -31,7 +31,3 @@ Then, update the stylesheet header in `style.css` and the links in `footer.php` 
 
 #SASS and CSS
 You can use SASS or hack the CSS File. I recommend SASS and  compile with [Codekit](https://incident57.com/codekit/) Tool or via CLI.
-
-#TODO
-
-Bootstrap Version

@@ -11,6 +11,7 @@ define('DISABLE_UPDATE_NOTICE_FOR_NON_ADMINS', true);
 define('DISABLE_THEME_UPDATES', true);
 define('DISABLE_COMMENTS', true);
 define('DEV_VERSION', true);
+define('USE_BOOTSTAP', true);
 
 
 if ( ! function_exists( '_teutopress_setup' ) ) :
@@ -74,9 +75,18 @@ add_action( 'widgets_init', '_teutopress_widgets_init' );
  * Enqueue scripts and styles.
  */
 function _teutopress_scripts() {
+
 	wp_enqueue_style( '_teutopress-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( '_teutopress-scripts', get_template_directory_uri() . '/js/scripts.js', array('jQuery'), '20120206', true);
+	if(defined('USE_BOOTSTAP') AND USE_BOOTSTAP){
+
+		wp_enqueue_style('_teutopress-bootstrap-styles', get_template_directory_uri() . '/resources/bootstrap/stylesheets/bootstrap.min.css');
+
+		wp_enqueue_script( '_teutopress-bootstrap-scripts', get_template_directory_uri() . '/resources/bootstrap/javascripts/bootstrap.min.js', array('jquery'), '3.3.5', true);
+
+	}
+
+	wp_enqueue_script( '_teutopress-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'));
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
