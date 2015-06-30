@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)
-
 _teutopress
 ===
 a blank theme to start development based on _s.
@@ -10,6 +8,8 @@ The Blog specific elements are removed and/or disabled (i.e. not Jetpack) to wor
 3. Disabled Comments (can be activated in inc/extras.php)
 4. Removed the WP-Customizer Setting
 5. Removed the WP-Custom Header Settingep find and replace on the name in all the templates.
+6. Theme and Plugin Updates only for Admins
+8. ADDED STATIC DEFINE vars to provide some options
 
 #Getting started
 
