@@ -2,7 +2,6 @@
 
 _teutopress
 ===
-# teutopress
 a blank theme to start development based on _s.
 The Blog specific elements are removed and/or disabled (i.e. not Jetpack) to work as a CMS Theme. Also there are some neat function added. 
 
