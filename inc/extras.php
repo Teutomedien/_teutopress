@@ -160,7 +160,7 @@ if(defined('DISABLE_THEME_UPDATES') AND DISABLE_THEME_UPDATES){
  */
 if(defined('DISABLE_RSS') AND DISABLE_RSS){
 	function _teutopress_disable_feeds() {
-		wp_die( __('Kein Feed vorhanden. Besuchen Sie doch bitte unsere <a href="' . get_bloginfo('url') . '">Startseite</a>.', '_teutopress') );
+		wp_die( sprintf(__('Sorry we have no feed. Please visit our <a href="%1$s">Homepage</a>.', '_teutopress'), get_bloginfo('url') ));
 	}
 	add_action('do_feed', '_teutopress_disable_feeds', 1);
 	add_action('do_feed_rdf', '_teutopress_disable_feeds', 1);
